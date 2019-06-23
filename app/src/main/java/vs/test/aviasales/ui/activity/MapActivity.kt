@@ -1,6 +1,8 @@
 package vs.test.aviasales.ui.activity
 
+import android.animation.Animator
 import android.animation.ValueAnimator
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -60,6 +62,8 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
     private val viewModel: MapViewModel<MapState, MapEvent> by viewModel { parametersOf(route) }
     private var animationStartValue = 0f
     private var planeRotation = 0f
+    private var animator: Animator? = null
+    private var dialog: Dialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,6 +99,12 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
         observeState(map)
     }
 
+    override fun onPause() {
+        super.onPause()
+        animator?.cancel()
+        dialog?.dismiss()
+    }
+
     private fun observeState(map: GoogleMap) {
         viewModel.state.observe(this, androidx.lifecycle.Observer {
             when (it) {
@@ -113,7 +123,7 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
         val planeMarker = map.addMarker(planeOptions.rotation(planeRotation))
         val (from, to) = animationStartValue to 1f
 
-        ValueAnimator.ofFloat(from, to).apply {
+        animator = ValueAnimator.ofFloat(from, to).apply {
             duration = (ANIMATION_DURATION_MILLIS * (1 - animationStartValue)).toLong()
             interpolator = AccelerateDecelerateInterpolator()
             addUpdateListener {
@@ -131,7 +141,7 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
 
             }
             addListener(onEnd = {
-                AlertDialog.Builder(this@MapActivity)
+                dialog = AlertDialog.Builder(this@MapActivity)
                     .setTitle(getString(R.string.map_dialog_title))
                     .setMessage(getString(R.string.map_dialog_description))
                     .setPositiveButton(R.string.map_dialog_yse_button) { dialog, which -> this@MapActivity.finish() }
