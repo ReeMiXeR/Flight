@@ -1,17 +1,15 @@
 ﻿[
   {
-    "id": 850851,
-    "countryName": "\u041a\u0435\u043d\u0438\u044f",
-    "locationFullName": "\u041d\u0430\u0439\u0440\u043e\u0431\u0438, \u041a\u0435\u043d\u0438\u044f",
+    "countryName": "\u0418\u043d\u0434\u0438\u044f",
+    "locationFullName": "\u0414\u0435\u043b\u0438, \u0418\u043d\u0434\u0438\u044f",
     "coordinates": {
-      "lat": -1.28333,
-      "lon": 36.81667
+      "lat": 28.632558,
+      "lon": 77.220036
     },
-    "code": "NBO",
-    "cityName": "\u041d\u0430\u0439\u0440\u043e\u0431\u0438"
+    "code": "DEL",
+    "cityName": "\u0414\u0435\u043b\u0438"
   },
   {
-    "id": 850850,
     "countryName": "\u0420\u043e\u0441\u0441\u0438\u044f",
     "locationFullName": "\u041c\u043e\u0441\u043a\u0432\u0430, \u0420\u043e\u0441\u0441\u0438\u044f",
     "coordinates": {

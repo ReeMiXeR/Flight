@@ -22,6 +22,9 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:alpha">.7</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:paddingEnd">4dp</item>
+        <item name="android:paddingStart">4dp</item>
         <item name="android:gravity">center</item>
         <item name="android:paddingTop">4dp</item>
         <item name="android:textColor">@color/white</item>
@@ -31,6 +34,9 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:alpha">.7</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:paddingEnd">4dp</item>
+        <item name="android:paddingStart">4dp</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textAppearance">@style/R18</item>
