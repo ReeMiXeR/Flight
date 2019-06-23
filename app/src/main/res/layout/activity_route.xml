@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.motion.widget.MotionLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/route_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/select_point_background_gradient"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        app:layoutDescription="@xml/route_scene">
+
+    <TextView
+            android:id="@+id/route_from_code"
+            style="@style/AirportCode"
+            tools:text="SWO"/>
+
+    <TextView
+            android:id="@+id/route_to_code"
+            style="@style/AirportCode"
+            tools:text="MOW"/>
+
+    <TextView
+            android:id="@+id/route_from_name"
+            style="@style/AirportCity"
+            app:layout_constraintTop_toBottomOf="@id/route_from_code"
+            app:layout_constraintEnd_toEndOf="@id/route_from_code"
+            app:layout_constraintStart_toStartOf="@id/route_from_code"
+            tools:text="Moscow"/>
+
+    <TextView
+            android:id="@+id/route_from_country"
+            style="@style/AirportCountry"
+            app:layout_constraintTop_toBottomOf="@id/route_from_name"
+            app:layout_constraintEnd_toEndOf="@id/route_from_code"
+            app:layout_constraintStart_toStartOf="@id/route_from_code"
+            tools:text="Moscow"/>
+
+    <TextView
+            android:id="@+id/route_to_name"
+            style="@style/AirportCity"
+            app:layout_constraintTop_toBottomOf="@id/route_to_code"
+            app:layout_constraintEnd_toEndOf="@id/route_to_code"
+            app:layout_constraintStart_toStartOf="@id/route_to_code"
+            tools:text="Turkey"/>
+
+    <TextView
+            android:id="@+id/route_to_country"
+            style="@style/AirportCountry"
+            app:layout_constraintTop_toBottomOf="@id/route_to_name"
+            app:layout_constraintEnd_toEndOf="@id/route_to_code"
+            app:layout_constraintStart_toStartOf="@id/route_to_code"
+            tools:text="Turkey"/>
+
+    <ImageView
+            android:id="@+id/route_swap_points"
+            style="@style/Swapper"
+            android:contentDescription="@string/route_swapper_content_description"/>
+
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/route_search_button"
+            style="@style/SearchButton"
+            android:text="@string/route_search_button_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.constraintlayout.motion.widget.MotionLayout>

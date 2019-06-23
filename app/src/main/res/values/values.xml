@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="StateViewGroup">
+        <attr format="reference" name="state_empty"/>
+        <attr format="reference" name="state_content"/>
+        <attr format="reference" name="state_loading"/>
+        <attr format="reference" name="state_stub"/>
+        <attr format="enum" name="state_init">
+            <enum name="loading" value="0"/>
+            <enum name="content" value="1"/>
+            <enum name="stub" value="2"/>
+            <enum name="empty" value="3"/>
+        </attr></declare-styleable>
+</resources>

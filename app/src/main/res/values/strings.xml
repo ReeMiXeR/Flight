@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Aviasales</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="route_swapper_content_description">swapper</string>
+    <string name="route_search_button_text">Искать</string>
+    <string name="select_point_search_hint">\u0020Поиск</string>
+    <string name="select_airport_start_search">Начните искать</string>
+    <string name="select_airport_nothing_found">Ничего не найдено</string>
+</resources>

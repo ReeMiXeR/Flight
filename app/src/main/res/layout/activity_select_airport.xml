@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/select_airport_query"
+            style="@style/SearchEditText">
+
+        <requestFocus/>
+    </androidx.appcompat.widget.AppCompatEditText>
+
+    <vs.test.aviasales.ui.view.StateViewGroup
+            android:id="@+id/select_airport_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:state_content="@+id/select_airport_rv"
+            app:state_empty="@+id/select_airport_empty"
+            app:state_stub="@+id/select_airport_stub"
+            app:state_loading="@+id/select_airport_loading"
+            app:state_init="loading">
+
+        <FrameLayout
+                android:id="@id/select_airport_loading"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <androidx.core.widget.ContentLoadingProgressBar
+                    style="@style/Widget.AppCompat.ProgressBar"
+                    android:indeterminate="true"
+                    android:layout_gravity="center"
+                    android:indeterminateTint="@color/colorPrimaryDark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+        </FrameLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@id/select_airport_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:requiresFadingEdge="vertical"/>
+
+        <TextView
+                android:id="@id/select_airport_stub"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAppearance="@style/R30"
+                android:gravity="center"
+                android:text="@string/select_airport_start_search"/>
+
+        <TextView
+                android:id="@id/select_airport_empty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAppearance="@style/R30"
+                android:gravity="center"
+                android:text="@string/select_airport_nothing_found"/>
+
+    </vs.test.aviasales.ui.view.StateViewGroup>
+</LinearLayout>

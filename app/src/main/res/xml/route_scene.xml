@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+            motion:constraintSetStart="@+id/start_swap"
+            motion:constraintSetEnd="@+id/end_swap"
+            motion:duration="300"
+            motion:motionInterpolator="easeInOut">
+        <OnClick
+                motion:targetId="@+id/route_swap_points"/>
+
+        <KeyFrameSet>
+            <KeyAttribute
+                    android:scaleX="0"
+                    android:scaleY="0"
+                    android:translationY="8dp"
+                    motion:framePosition="50"
+                    motion:motionTarget="@id/route_from_code"/>
+            <KeyAttribute
+                    android:scaleX="0"
+                    android:scaleY="0"
+                    motion:framePosition="50"
+                    android:translationY="8dp"
+                    motion:motionTarget="@id/route_to_code"/>
+            <KeyAttribute
+                    android:scaleX="0"
+                    android:scaleY="0"
+                    android:translationY="-8dp"
+                    motion:framePosition="50"
+                    motion:motionTarget="@id/route_from_name"/>
+            <KeyAttribute
+                    android:scaleX="0"
+                    android:scaleY="0"
+                    android:translationY="-8dp"
+                    motion:framePosition="50"
+                    motion:motionTarget="@id/route_to_name"/>
+            <KeyAttribute
+                    android:scaleX="0"
+                    android:scaleY="0"
+                    android:translationY="-8dp"
+                    motion:framePosition="50"
+                    motion:motionTarget="@id/route_from_country"/>
+            <KeyAttribute
+                    android:scaleX="0"
+                    android:scaleY="0"
+                    android:translationY="-8dp"
+                    motion:framePosition="50"
+                    motion:motionTarget="@id/route_to_country"/>
+        </KeyFrameSet>
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start_swap">
+        <Constraint
+                android:id="@id/route_from_code"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                motion:layout_constraintTop_toTopOf="parent"
+                motion:layout_constraintBottom_toTopOf="@id/route_search_button"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintEnd_toStartOf="@id/route_swap_points"/>
+
+        <Constraint
+                android:id="@id/route_to_code"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                motion:layout_constraintTop_toTopOf="parent"
+                motion:layout_constraintBottom_toTopOf="@id/route_search_button"
+                motion:layout_constraintStart_toEndOf="@id/route_swap_points"
+                motion:layout_constraintEnd_toEndOf="parent"/>
+
+        <Constraint
+                android:id="@id/route_swap_points"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:rotation="90"
+                android:translationY="20dp"
+                motion:layout_constraintTop_toTopOf="@id/route_from_code"
+                motion:layout_constraintBottom_toBottomOf="@id/route_from_name"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"/>
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end_swap">
+
+        <Constraint
+                android:id="@id/route_from_code"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                motion:layout_constraintTop_toTopOf="parent"
+                motion:layout_constraintBottom_toTopOf="@id/route_search_button"
+                motion:layout_constraintStart_toEndOf="@id/route_swap_points"
+                motion:layout_constraintEnd_toEndOf="parent"/>
+
+        <Constraint
+                android:id="@id/route_to_code"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                motion:layout_constraintBottom_toTopOf="@id/route_search_button"
+                motion:layout_constraintTop_toTopOf="parent"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintEnd_toStartOf="@id/route_swap_points"/>
+
+        <Constraint
+                android:id="@id/route_swap_points"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:translationY="20dp"
+                android:rotation="450"
+                motion:layout_constraintTop_toTopOf="@id/route_from_code"
+                motion:layout_constraintBottom_toBottomOf="@id/route_from_name"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintEnd_toEndOf="parent"/>
+    </ConstraintSet>
+</MotionScene>
