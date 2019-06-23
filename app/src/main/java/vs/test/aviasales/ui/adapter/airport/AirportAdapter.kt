@@ -4,6 +4,7 @@ import android.view.View
 import vs.test.aviasales.R
 import vs.test.aviasales.domain.model.Airport
 import vs.test.aviasales.ui.adapter.base.Adapter
+import vs.test.aviasales.ui.singleClick
 
 typealias OnAirportClicked = (Airport) -> Unit
 
@@ -16,7 +17,11 @@ class AirportAdapter(private val onClick: OnAirportClicked) : Adapter<Airport, A
 
     override fun bind(holder: AirportViewHolder, item: Airport, position: Int) {
         holder.apply {
-            view.setOnClickListener { onClick.invoke(item) }
+            view.setOnClickListener {
+                singleClick {
+                    onClick.invoke(item)
+                }
+            }
             fullName.text = item.locationFullName
             code.text = item.code
         }

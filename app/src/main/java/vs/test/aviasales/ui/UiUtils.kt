@@ -41,7 +41,7 @@ fun View.setVisible() {
     this.visibility = View.VISIBLE
 }
 
-fun singleTouch(delay: Long = TouchLocker.TOUCH_FREEZE_TIME, touchEvent: () -> Unit) {
+fun singleClick(delay: Long = TouchLocker.TOUCH_FREEZE_TIME, touchEvent: () -> Unit) {
     val currentTime = System.currentTimeMillis()
     if (currentTime - delay < TouchLocker.lastTouchTime) return
 

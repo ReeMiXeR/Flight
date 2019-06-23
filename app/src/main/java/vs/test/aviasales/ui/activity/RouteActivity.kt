@@ -14,7 +14,7 @@ import vs.test.aviasales.ui.model.Position
 import vs.test.aviasales.ui.model.route.RouteEvent
 import vs.test.aviasales.ui.model.route.RouteState
 import vs.test.aviasales.ui.scaleTap
-import vs.test.aviasales.ui.singleTouch
+import vs.test.aviasales.ui.singleClick
 import vs.test.aviasales.ui.viewmodel.RouteViewModel
 import vs.test.aviasales.utils.exhaustive
 
@@ -94,7 +94,7 @@ class RouteActivity : BaseActivity() {
             route_from_country
         ).forEach {
             it.setOnClickListener {
-                singleTouch {
+                singleClick {
                     viewModel.onAirportSelectClicked(if (isPointsSwapped()) Position.FROM else Position.TO)
                 }
             }
@@ -106,7 +106,7 @@ class RouteActivity : BaseActivity() {
             route_to_country
         ).forEach {
             it.setOnClickListener {
-                singleTouch {
+                singleClick {
                     viewModel.onAirportSelectClicked(if (isPointsSwapped()) Position.FROM else Position.TO)
                 }
             }
@@ -119,7 +119,7 @@ class RouteActivity : BaseActivity() {
         )
 
         route_search_button.setOnClickListener {
-            singleTouch {
+            singleClick {
                 viewModel.onSearchRouteClicked()
             }
         }
