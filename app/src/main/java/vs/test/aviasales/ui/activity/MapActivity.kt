@@ -10,6 +10,8 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
+import androidx.core.animation.addListener
 import androidx.core.content.ContextCompat
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -126,7 +128,15 @@ class MapActivity : BaseActivity(), OnMapReadyCallback {
                         planeRotation = rotation
                     }
                 }
+
             }
+            addListener(onEnd = {
+                AlertDialog.Builder(this@MapActivity)
+                    .setTitle(getString(R.string.map_dialog_title))
+                    .setMessage(getString(R.string.map_dialog_description))
+                    .setPositiveButton(R.string.map_dialog_yse_button) { dialog, which -> this@MapActivity.finish() }
+                    .show()
+            })
 
             start()
         }

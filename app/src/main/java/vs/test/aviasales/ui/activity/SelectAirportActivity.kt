@@ -5,13 +5,16 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MotionEvent
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jakewharton.rxbinding3.widget.textChanges
 import kotlinx.android.synthetic.main.activity_select_airport.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import timber.log.Timber
 import vs.test.aviasales.R
+import vs.test.aviasales.domain.model.Route
 import vs.test.aviasales.ui.adapter.airport.AirportAdapter
 import vs.test.aviasales.ui.model.Position
 import vs.test.aviasales.ui.model.select_airport.SelectAirportEvent
@@ -19,6 +22,7 @@ import vs.test.aviasales.ui.model.select_airport.SelectAirportState
 import vs.test.aviasales.ui.viewmodel.SelectAirportViewModel
 import vs.test.aviasales.utils.exhaustive
 import java.util.concurrent.TimeUnit
+
 
 class SelectAirportActivity : BaseActivity() {
 
@@ -28,6 +32,7 @@ class SelectAirportActivity : BaseActivity() {
         const val REQUEST_CODE = 69
         const val KEY_SELECTED_AIRPORT = "$TAG.selected_airport"
         const val KEY_POSITION = "$TAG.position"
+        const val KEY_ROUTE = "$TAG.current_route"
 
         const val TEXT_INPUT_DELAY = 300L
 
@@ -36,15 +41,19 @@ class SelectAirportActivity : BaseActivity() {
         private const val DRAWABLE_START = 0
         private const val DRAWABLE_START_SIZE_FACTOR = 1.3f
 
-        fun getIntent(context: Context, position: Position): Intent {
+        fun getIntent(context: Context, route: Route, position: Position): Intent {
             return Intent(context, SelectAirportActivity::class.java).apply {
                 putExtra(KEY_POSITION, position)
+                putExtra(KEY_ROUTE, route)
             }
         }
     }
 
-    private val viewModel by viewModel<SelectAirportViewModel<SelectAirportState, SelectAirportEvent>>()
+    private val currentRoute by lazy { intent.getSerializableExtra(KEY_ROUTE) as Route }
     private val rvAdapter by lazy { AirportAdapter(viewModel::onAirportClicked) }
+    private val viewModel: SelectAirportViewModel<SelectAirportState, SelectAirportEvent> by viewModel {
+        parametersOf(currentRoute)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,7 +111,7 @@ class SelectAirportActivity : BaseActivity() {
 
     private fun observeEvents() {
         viewModel.events
-            .observe(this, Observer<SelectAirportEvent> {
+            .observe(this, Observer {
                 when (it) {
                     is SelectAirportEvent.OnAirportSelected -> {
                         setResult(
@@ -118,6 +127,15 @@ class SelectAirportActivity : BaseActivity() {
                     is SelectAirportEvent.Close -> {
                         setResult(Activity.RESULT_CANCELED)
                         finish()
+                    }
+
+                    is SelectAirportEvent.AirportAlreadySelectedDialog -> {
+                        AlertDialog.Builder(this)
+                            .setTitle(getString(R.string.select_airport_dialog_title))
+                            .setMessage(getString(R.string.select_airport_dialog_description))
+                            .setPositiveButton(android.R.string.yes) { dialog, which -> }
+                            .show()
+                        Unit
                     }
                 }.exhaustive
             })

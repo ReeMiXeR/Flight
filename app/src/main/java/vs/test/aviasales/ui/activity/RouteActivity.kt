@@ -74,6 +74,13 @@ class RouteActivity : BaseActivity() {
                 is RouteEvent.SwitchToMapScreen -> {
                     startActivity(MapActivity.getIntent(this, it.route))
                 }
+
+                is RouteEvent.SwitchToSelectAirportScreen -> {
+                    startActivityForResult(
+                        SelectAirportActivity.getIntent(this, it.route, it.position),
+                        SelectAirportActivity.REQUEST_CODE
+                    )
+                }
             }.exhaustive
         })
     }
@@ -83,28 +90,24 @@ class RouteActivity : BaseActivity() {
 
         listOf(
             route_from_code,
-            route_from_name
+            route_from_name,
+            route_from_country
         ).forEach {
             it.setOnClickListener {
                 singleTouch {
-                    startActivityForResult(
-                        SelectAirportActivity.getIntent(this, if (isPointsSwapped()) Position.TO else Position.FROM),
-                        SelectAirportActivity.REQUEST_CODE
-                    )
+                    viewModel.onAirportSelectClicked(if (isPointsSwapped()) Position.FROM else Position.TO)
                 }
             }
         }
 
         listOf(
             route_to_code,
-            route_to_name
+            route_to_name,
+            route_to_country
         ).forEach {
             it.setOnClickListener {
                 singleTouch {
-                    startActivityForResult(
-                        SelectAirportActivity.getIntent(this, if (isPointsSwapped()) Position.FROM else Position.TO),
-                        SelectAirportActivity.REQUEST_CODE
-                    )
+                    viewModel.onAirportSelectClicked(if (isPointsSwapped()) Position.FROM else Position.TO)
                 }
             }
         }

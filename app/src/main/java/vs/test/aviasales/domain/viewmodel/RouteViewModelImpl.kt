@@ -27,10 +27,17 @@ class RouteViewModelImpl(private val repository: RouteRepository) : RouteViewMod
                 .subscribeOn(Schedulers.io())
                 .subscribe({
                     state.postValue(RouteState.ShowRoute(it))
-                }, {
-                    Timber.tag(TAG).e(it)
-                }
+                }, Timber.tag(TAG)::e)
+        }
+    }
+
+    override fun onAirportSelectClicked(position: Position) {
+        when (val value = state.value) {
+            is RouteState.ShowRoute -> {
+                events.postValue(
+                    RouteEvent.SwitchToSelectAirportScreen(value.route, position)
                 )
+            }
         }
     }
 

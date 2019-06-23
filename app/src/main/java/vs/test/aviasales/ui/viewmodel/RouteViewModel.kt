@@ -7,4 +7,5 @@ abstract class RouteViewModel<State, Event> : BaseViewModel<State, Event>() {
     abstract fun onSearchRouteClicked()
     abstract fun swap()
     abstract fun onAirportSelected(airport: Airport, position: Position)
+    abstract fun onAirportSelectClicked(position: Position)
 }

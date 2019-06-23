@@ -8,7 +8,7 @@ import org.koin.core.context.startKoin
 import vs.test.aviasales.di.modules.appModule
 import vs.test.aviasales.di.modules.mapModule
 import vs.test.aviasales.di.modules.routeModule
-import vs.test.aviasales.di.modules.suggestsModule
+import vs.test.aviasales.di.modules.selectAirportModule
 
 class App : Application() {
 
@@ -22,7 +22,7 @@ class App : Application() {
         startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(listOf(appModule, suggestsModule, routeModule, mapModule))
+            modules(listOf(appModule, selectAirportModule, routeModule, mapModule))
         }
     }
 }

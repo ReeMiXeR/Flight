@@ -10,6 +10,7 @@ import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import vs.test.aviasales.domain.model.Airport
 import vs.test.aviasales.domain.model.City
+import vs.test.aviasales.domain.model.Route
 import vs.test.aviasales.domain.repository.SuggestRepository
 import vs.test.aviasales.ui.adapter.diff.AirportItemDiff
 import vs.test.aviasales.ui.model.DataDiffResult
@@ -19,8 +20,9 @@ import vs.test.aviasales.ui.viewmodel.SelectAirportViewModel
 import vs.test.aviasales.utils.SingleLiveEvent
 
 class SelectAirportViewModelImpl(
-    private val suggestRepository: SuggestRepository
-) : SelectAirportViewModel<SelectAirportState, SelectAirportEvent>() {
+    private val suggestRepository: SuggestRepository,
+    currentRoute: Route
+) : SelectAirportViewModel<SelectAirportState, SelectAirportEvent>(currentRoute) {
 
     private companion object {
         const val TAG = "SelectAirportViewModelImpl"
@@ -38,20 +40,27 @@ class SelectAirportViewModelImpl(
     override fun onQueryChanged(query: CharSequence) = querySource.accept(query.toString())
 
     override fun onAirportClicked(item: Airport) {
-        safeSubscribe {
-            suggestRepository.insertAirport(item)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .onErrorResumeNext {
-                    Timber.tag(TAG).e(it)
-                    Completable.complete()
-                }
-                .subscribe {
-                    events.postValue(
-                        SelectAirportEvent.OnAirportSelected(item)
-                    )
-                }
+        if (item == currentRoute.from || item == currentRoute.to) {
+            events.postValue(
+                SelectAirportEvent.AirportAlreadySelectedDialog
+            )
+        } else {
+            safeSubscribe {
+                suggestRepository.insertAirport(item)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .onErrorResumeNext {
+                        Timber.tag(TAG).e(it)
+                        Completable.complete()
+                    }
+                    .subscribe {
+                        events.postValue(
+                            SelectAirportEvent.OnAirportSelected(item)
+                        )
+                    }
+            }
         }
+
     }
 
     override fun onCloseClicked() {
