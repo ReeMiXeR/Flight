@@ -1,2 +1,2 @@
 # Flight
-Kotlin + MVVM + RxJava 2 + Retrofit 2 + Room + Koin + Google Maps + AndroidX
+Kotlin + MVVM + RxJava 2 + Retrofit 2 + Room + Koin + Google Maps + MotionLayout + AndroidX
